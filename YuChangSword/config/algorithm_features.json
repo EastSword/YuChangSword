@@ -1,0 +1,40 @@
+{
+    "对称加密": {
+        "AES": {
+            "patterns": ["\\bAES\\b", "\\bCBC\\b"],
+            "risk_factors": ["弱IV生成", "ECB模式"]
+        },
+        "SM4": {
+            "patterns": ["\\bsm4\\.encrypt\\b", "\\bsm4\\.decrypt\\b"],
+            "risk_factors": ["密钥派生缺陷", "CBC填充风险"]
+        }
+    },
+    "非对称加密": {
+        "RSA": {
+        "patterns": [
+            "\\bRSA\\.generate\\(\\d+\\b",
+            "\\bPKCS1_OAEP\\.new\\b",
+            "\\bopenssl\\s+rsa\\b"
+        ],
+        "risk_factors": ["短密钥(<2048)", "无填充模式", "CBC模式"]
+        },
+        "ECC": {
+        "patterns": [
+            "\\bEC\\.generate\\b",
+            "\\bsecp256k1\\b",
+            "\\bECDSA\\b"
+        ],
+        "risk_factors": ["弱椭圆曲线", "随机数重用"]
+        }
+    },
+    "哈希算法": {
+        "SHA256": {
+            "patterns": ["\\bSHA256\\b", "\\bdigest\\b"],
+            "risk_factors": ["盐值缺失", "迭代不足"]
+        },
+        "SM3": {
+            "patterns": ["\\bsm3\\s*\\(", "\\bSM3\\b"],
+            "risk_factors": ["抗碰撞性不足", "输出截断"]
+        }
+    }
+}
